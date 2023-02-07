@@ -1,17 +1,22 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  host: postgresql
+  # For details on connection pooling, see Rails configuration guide
+  # https://guides.rubyonrails.org/configuring.html#database-pooling
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: postgres
+  password: password
+
 development:
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-  database: db/development.sqlite3
-
+  <<: *default
+  database: app-exemplo_development
 test:
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-  database: db/test.sqlite3
-
+  <<: *default
+  database: app-exemplo_test
+  
 production:
-  adapter: sqlite3
-  pool: 5
-  timeout: 5000
-  database: db/production.sqlite3
+  <<: *default
+  database: app-exemplo_production
+  username: socialm
+  password: <%= ENV["SOCIALM_DATABASE_PASSWORD"] %>
